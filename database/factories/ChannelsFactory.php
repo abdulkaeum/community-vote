@@ -14,7 +14,9 @@ class ChannelsFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title' => $this->faker->sentence(),
+            'slug' => $this->faker->slug(),
+            'color' => $this->faker->colorName(),
         ];
     }
 }

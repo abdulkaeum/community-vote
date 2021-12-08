@@ -18,6 +18,9 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
     <body class="font-sans antialiased">
+
+        @include('_partials.flash')
+
         <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
 
@@ -33,5 +36,8 @@
                 {{ $slot }}
             </main>
         </div>
+
+        <!-- AlpineJS -->
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     </body>
 </html>

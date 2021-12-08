@@ -27,12 +27,17 @@ class CommunityLinksController extends Controller
 
         $attributes['user_id'] = auth()->user()->id;
 
-        if (auth()->user()->isAdmin()) {
+        $isAdmin = auth()->user()->isAdmin();
+
+        if ($isAdmin) {
             $attributes['approved'] = true;
         }
 
         CommunityLinks::create($attributes);
 
-        return back();
+        return back()->with(
+            $isAdmin ? 'success' : 'info',
+            $isAdmin ? 'Thank You!' : 'Post awaiting approval',
+        );
     }
 }

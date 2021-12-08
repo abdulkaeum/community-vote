@@ -18,9 +18,18 @@
                                         <a href="{{ $link->link}}" target="_blank">
                                             {{ $link->title }}
                                         </a>
-                                        <div class="text-xs mt-2">
-                                            Contributed
-                                            By {{ $link->creater->name }} {{ $link->created_at->diffForHumans() }}
+                                        <div class="flex justify-between">
+                                            <div class="text-xs mt-2">
+                                                <span>
+                                                Contributed
+                                                By {{ $link->creater->name }} {{ $link->created_at->diffForHumans() }}
+                                                </span>
+                                            </div>
+                                            <div class="text-xs mt-2">
+                                                <span class="bg-{{ $link->channel->color }}-500 text-white rounded p-1">
+                                                    {{ $link->channel->title }}
+                                                </span>
+                                            </div>
                                         </div>
                                     </li>
                                 @empty

@@ -15,4 +15,9 @@ class CommunityLinks extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function channel()
+    {
+        return $this->belongsTo(Channels::class);
+    }
 }

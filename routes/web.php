@@ -24,5 +24,7 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('community', [CommunityLinksController::class, 'index']);
-Route::post('community', [CommunityLinksController::class, 'store']);
+Route::middleware('auth')->group(function (){
+    Route::get('community', [CommunityLinksController::class, 'index']);
+    Route::post('community', [CommunityLinksController::class, 'store'])->name('community.store');
+});

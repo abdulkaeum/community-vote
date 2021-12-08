@@ -14,6 +14,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         CommunityLinks::factory()->create();
+         CommunityLinks::factory(10)->create();
     }
 }

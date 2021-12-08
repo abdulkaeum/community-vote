@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class CommunityLinks extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['user_id', 'channel_id', 'title', 'link'];
+
+    public function creater()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

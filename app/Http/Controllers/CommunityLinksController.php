@@ -25,15 +25,9 @@ class CommunityLinksController extends Controller
             'channel_id' => ['required', Rule::exists('channels', 'id')],
         ]);
 
-        $attributes['user_id'] = auth()->user()->id;
+        CommunityLinks::fromUser(auth()->user())->contribute($attributes);
 
         $isAdmin = auth()->user()->isAdmin();
-
-        if ($isAdmin) {
-            $attributes['approved'] = true;
-        }
-
-        CommunityLinks::create($attributes);
 
         return back()->with(
             $isAdmin ? 'success' : 'info',

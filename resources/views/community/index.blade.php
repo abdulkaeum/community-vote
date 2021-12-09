@@ -14,7 +14,7 @@
                             class="w-full lg:w-1/2">
                             <ul>
                                 @forelse($links as $link)
-                                    <li class="p-5 mb-3 bg-gray-100">
+                                    <li class="p-5 mb-3 bg-gray-100 border border-l-4 border-blue-500">
                                         <a href="{{ $link->link}}" target="_blank">
                                             {{ $link->title }}
                                         </a>

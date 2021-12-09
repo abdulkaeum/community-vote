@@ -44,6 +44,7 @@ class User extends Authenticatable
         'admin' => 'boolean'
     ];
 
+    /*check if the user is an admin*/
     public function isAdmin()
     {
         return $this->admin;

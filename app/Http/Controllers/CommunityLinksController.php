@@ -11,7 +11,7 @@ class CommunityLinksController extends Controller
 {
     public function index()
     {
-        $links = CommunityLinks::where('approved', 1)->latest()->paginate(5);
+        $links = CommunityLinks::where('approved', 1)->latest('updated_at')->paginate(5);
         $channels = Channels::orderBy('title', 'asc')->get();
 
         return view('community.index', compact('links', 'channels'));
@@ -21,7 +21,7 @@ class CommunityLinksController extends Controller
     {
         $attributes = $request->validate([
             'title' => ['required', 'min:5', 'max:50'],
-            'link' => ['required', 'min:5', 'url', Rule::unique('community_links', 'link')],
+            'link' => ['required', 'min:5', 'url'],
             'channel_id' => ['required', Rule::exists('channels', 'id')],
         ]);
 

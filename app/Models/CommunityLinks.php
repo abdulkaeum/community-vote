@@ -31,6 +31,12 @@ class CommunityLinks extends Model
     }
     public function contribute($attributes)
     {
+        // check if we need to update (timestamps) a link if another supplied
+        if($linkExists = $this->linkAlreadySubmitted($attributes['link'])){
+            // retrieve model and update the timestamps then exit instead
+            return $linkExists->touch();
+        }
+
         // chained to fromUser() (now instance)
         // fill the model with rest of the attributes and persist it to the db
         return $this->fill($attributes)->save();
@@ -42,6 +48,12 @@ class CommunityLinks extends Model
         $this->approved = true;
 
         return $this;
+    }
+
+    protected function linkAlreadySubmitted($link)
+    {
+        // check to see if a link already exists
+        return static::where('link', $link)->first();
     }
 
     /*Relations*/

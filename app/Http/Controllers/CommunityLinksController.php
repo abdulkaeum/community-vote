@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\DuplicateCommunityLink;
 use App\Models\Channels;
 use App\Models\CommunityLinks;
 use Illuminate\Http\Request;
@@ -25,13 +26,17 @@ class CommunityLinksController extends Controller
             'channel_id' => ['required', Rule::exists('channels', 'id')],
         ]);
 
-        CommunityLinks::fromUser(auth()->user())->contribute($attributes);
-
         $isAdmin = auth()->user()->isAdmin();
 
-        return back()->with(
-            $isAdmin ? 'success' : 'info',
-            $isAdmin ? 'Thank You!' : 'Post awaiting approval',
-        );
+        try {
+            CommunityLinks::fromUser(auth()->user())->contribute($attributes);
+
+            return back()->with(
+                $isAdmin ? 'success' : 'info',
+                $isAdmin ? 'Thank You!' : 'Post awaiting approval',
+            );
+        } catch (DuplicateCommunityLink $e) {
+            return back()->with('info', 'Link already submitted. We have refreshed the submission date');
+        }
     }
 }

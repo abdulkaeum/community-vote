@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Exceptions\DuplicateCommunityLink;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -33,8 +34,10 @@ class CommunityLinks extends Model
     {
         // check if we need to update (timestamps) a link if another supplied
         if($linkExists = $this->linkAlreadySubmitted($attributes['link'])){
-            // retrieve model and update the timestamps then exit instead
-            return $linkExists->touch();
+            // retrieve model and update the timestamps
+            $linkExists->touch();
+
+            throw new DuplicateCommunityLink;
         }
 
         // chained to fromUser() (now instance)

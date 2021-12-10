@@ -24,7 +24,10 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
+Route::get('community', [CommunityLinksController::class, 'index'])->name('index');
+Route::get('community/{channel:slug}', [CommunityLinksController::class, 'index'])
+    ->name('filter.channel');
+
 Route::middleware('auth')->group(function (){
-    Route::get('community', [CommunityLinksController::class, 'index']);
     Route::post('community', [CommunityLinksController::class, 'store'])->name('community.store');
 });

@@ -10,12 +10,16 @@ use Illuminate\Validation\Rule;
 
 class CommunityLinksController extends Controller
 {
-    public function index()
+    public function index(Channels $channel = null)
     {
-        $links = CommunityLinks::where('approved', 1)->latest('updated_at')->paginate(5);
+        $links = CommunityLinks::forChannel($channel)
+            ->where('approved', 1)
+            ->latest('updated_at')
+            ->paginate(5);
+
         $channels = Channels::orderBy('title', 'asc')->get();
 
-        return view('community.index', compact('links', 'channels'));
+        return view('community.index', compact('links', 'channels', 'channel'));
     }
 
     public function store(Request $request)

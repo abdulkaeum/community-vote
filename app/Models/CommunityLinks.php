@@ -12,6 +12,14 @@ class CommunityLinks extends Model
 
     protected $fillable = ['user_id', 'channel_id', 'title', 'link', 'approved'];
 
+    /* filter the results via a channel */
+    public function scopeForChannel($query, $channel)
+    {
+        $query->when($channel, fn($query, $channel) => $query
+            ->where('channel_id', $channel->id)
+        );
+    }
+
     /*CommunityLink store methods*/
     public static function fromUser(User $user)
     {
@@ -22,7 +30,7 @@ class CommunityLinks extends Model
         $comLink->user_id = $user->id;
 
         // check if current user is an admin
-        if($user->isAdmin()){
+        if ($user->isAdmin()) {
             // set approved on the current instance
             $comLink->approve();
         }
@@ -30,10 +38,11 @@ class CommunityLinks extends Model
         // return the new instance
         return $comLink;
     }
+
     public function contribute($attributes)
     {
         // check if we need to update (timestamps) a link if another supplied
-        if($linkExists = $this->linkAlreadySubmitted($attributes['link'])){
+        if ($linkExists = $this->linkAlreadySubmitted($attributes['link'])) {
             // retrieve model and update the timestamps
             $linkExists->touch();
 

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\DuplicateCommunityLink;
 use App\Models\Channels;
-use App\Models\CommunityLinks;
+use App\Models\CommunityLink;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -12,10 +12,11 @@ class CommunityLinksController extends Controller
 {
     public function index(Channels $channel = null)
     {
-        $links = CommunityLinks::forChannel($channel)
+        $links = CommunityLink::with('votes')
+            ->forChannel($channel)
             ->where('approved', 1)
             ->latest('updated_at')
-            ->paginate(5);
+            ->paginate(8);
 
         $channels = Channels::orderBy('title', 'asc')->get();
 
@@ -33,7 +34,7 @@ class CommunityLinksController extends Controller
         $isAdmin = auth()->user()->isAdmin();
 
         try {
-            CommunityLinks::fromUser(auth()->user())->contribute($attributes);
+            CommunityLink::fromUser(auth()->user())->contribute($attributes);
 
             return back()->with(
                 $isAdmin ? 'success' : 'info',

@@ -6,7 +6,7 @@ use App\Exceptions\DuplicateCommunityLink;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CommunityLinks extends Model
+class CommunityLink extends Model
 {
     use HasFactory;
 
@@ -77,5 +77,10 @@ class CommunityLinks extends Model
     public function channel()
     {
         return $this->belongsTo(Channels::class);
+    }
+
+    public function votes()
+    {
+        return $this->hasMany(CommunityLinkVote::class, 'community_link_id');
     }
 }

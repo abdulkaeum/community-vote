@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CommunityLinksController;
+use App\Http\Controllers\VotesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,4 +31,5 @@ Route::get('community/{channel:slug}', [CommunityLinksController::class, 'index'
 
 Route::middleware('auth')->group(function (){
     Route::post('community', [CommunityLinksController::class, 'store'])->name('community.store');
+    Route::post('vote/{communityLink}', [VotesController::class, 'store'])->name('vote');
 });

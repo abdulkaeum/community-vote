@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\CommunityLinks;
+use App\Models\CommunityLink;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,6 +14,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         CommunityLinks::factory(10)->create();
+         CommunityLink::factory(10)->create();
     }
 }

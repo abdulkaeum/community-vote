@@ -49,4 +49,26 @@ class User extends Authenticatable
     {
         return $this->admin;
     }
+
+    public function votedFor(CommunityLink $communityLink)
+    {
+        return $communityLink->votes->contains('user_id', $this->id);
+    }
+
+    public function voteFor(CommunityLink $communityLink)
+    {
+        return $this->votes()->attach($communityLink);
+    }
+
+    public function toggleVote(CommunityLink $communityLink)
+    {
+        $this->votes()->toggle($communityLink);
+    }
+
+    /*Relations*/
+    public function votes()
+    {
+        return $this->belongsToMany(CommunityLink::class, 'community_links_votes')
+            ->withTimestamps();
+    }
 }

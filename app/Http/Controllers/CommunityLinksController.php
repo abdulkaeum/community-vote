@@ -19,7 +19,7 @@ class CommunityLinksController extends Controller
             ->forChannel($channel)
             ->where('approved', 1)
             ->orderBy($orderBy, 'desc')
-            ->paginate(6);
+            ->paginate(6)->withQueryString();
 
         $channels = Channels::orderBy('title', 'asc')->get();
 

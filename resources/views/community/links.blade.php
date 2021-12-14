@@ -9,7 +9,7 @@
 
         <a class="p-3 border border-t-2 border-l-2 border-r-2 hover:bg-gray-300
             {{ request()->exists('popular') ? 'bg-gray-300' : ''}}"
-           href="?popular"
+           href="?popular=true"
         >Popular</a>
     </div>
 

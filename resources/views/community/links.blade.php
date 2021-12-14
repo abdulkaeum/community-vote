@@ -1,12 +1,25 @@
 <div
     class="w-full lg:w-1/2 mt-3.5">
+
+    <div class="flex">
+        <a class="p-3 border border-t-2 border-r-2 hover:bg-gray-300 mr-1
+            {{ request()->exists('popular') ? '' : 'bg-gray-300'}}"
+           href="{{ request()->url() }}"
+        >Recent</a>
+
+        <a class="p-3 border border-t-2 border-l-2 border-r-2 hover:bg-gray-300
+            {{ request()->exists('popular') ? 'bg-gray-300' : ''}}"
+           href="?popular"
+        >Popular</a>
+    </div>
+
     @forelse($links as $link)
         <div class="flex p-5 mb-3 bg-gray-100 border border-l-4 border-blue-500">
             <div class="mt-1 mr-3 p-1">
                 <form action="{{ route('vote', $link->id) }}" method="POST">
                     @csrf
                     <button class="bg-{{ Auth::check() && Auth::user()->votedFor($link) ? 'green' : 'gray'}}-500 text-white p-3 rounded">
-                        {{ $link->votes->count() }}
+                        {{ $link->votes_count }}
                     </button>
                 </form>
             </div>
@@ -18,7 +31,7 @@
                 </p>
                 <p>
                     Contributed
-                    By {{ $link->creater->name }} {{ $link->created_at->diffForHumans() }}
+                    By {{ $link->creater->name }} {{ $link->updated_at->diffForHumans() }}
                 </p>
             </div>
             <div class="text-xs mt-2 justify-right">

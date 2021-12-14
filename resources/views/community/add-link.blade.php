@@ -1,4 +1,6 @@
-<div class="w-full lg:w-1/2 px-6">
+<div class="w-full lg:w-1/3 h-64">
+    <h2 class="text-xl mb-2">Contribute Your Link</h2>
+<div class="p-6 bg-gray-100 border border-blue-200">
     <form action="{{ route('community.store') }}" method="POST">
         @csrf
         <div class="mt-4 mb-4">
@@ -48,8 +50,9 @@
 
         </div>
 
-        <button class="bg-gray-800 text-gray-200 px-3 py-2 rounded mt-1">
-            Contribute Link
+        <button class="bg-gray-800 text-gray-200 px-6 py-3 rounded mt-1">
+            Submit
         </button>
     </form>
+</div>
 </div>

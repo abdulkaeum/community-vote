@@ -26,6 +26,7 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 Route::get('community', [CommunityLinksController::class, 'index'])->name('index');
+Route::get('/', [CommunityLinksController::class, 'index'])->name('index');
 Route::get('community/{channel:slug}', [CommunityLinksController::class, 'index'])
     ->name('filter.channel');
 

@@ -15,18 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
 
-Route::get('community', [CommunityLinksController::class, 'index'])->name('index');
 Route::get('/', [CommunityLinksController::class, 'index'])->name('index');
+Route::get('community', [CommunityLinksController::class, 'index'])->name('index');
 Route::get('community/{channel:slug}', [CommunityLinksController::class, 'index'])
     ->name('filter.channel');
 

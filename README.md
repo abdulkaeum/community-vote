@@ -17,4 +17,4 @@ Allow users to register and post links where other users can then vote up / down
 - Pagination + query string
 
 #### Screenshots
-<img alt="" width="450" src="public/app-screenshots/app.png">
+<img alt="" style="max-width: 800px; width: 100%;" src="public/app-screenshots/app.png">
